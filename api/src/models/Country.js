@@ -5,7 +5,7 @@ const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('country', {
+    sequelize.define('Country', {
         Id: {
             type: DataTypes.STRING,
             validate: {
@@ -16,7 +16,9 @@ module.exports = (sequelize) => {
                 len: [3, 3],
                 isUppercase: true,
             },
+            unique: true,
             allowNull: false,
+            primaryKey: true,
         },
         flag: {
             type: DataTypes.STRING,
@@ -24,18 +26,20 @@ module.exports = (sequelize) => {
                 isUrl: true,
             },
             allowNull: false,
+            unique: true
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         },
-        continet: {
-            name: DataTypes.ENUM('America', 'Africa', 'Asia', 'Europa', 'Oceania'),
+        continent: {
+            type: DataTypes.ENUM('America', 'Africa', 'Asia', 'Europa', 'Oceania'),
             allowNull: false,
         },
         capital: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNu: true
         },
         sub_region: {
             type: DataTypes.STRING,
@@ -48,6 +52,7 @@ module.exports = (sequelize) => {
         population: {
             type: DataTypes.INTEGER,
             allowNull: false
-        }
+        },
+        
     });
 };

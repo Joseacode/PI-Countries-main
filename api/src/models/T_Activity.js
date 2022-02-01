@@ -5,7 +5,7 @@ const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('t_activity', {
+    sequelize.define('T_Activity', {
         name: {
             type: DataTypes.STRING,
             allowNull: false
@@ -23,8 +23,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         seasons: {
-            type: DataTypes.ENUM,
-            value: ['Summer', 'Winter', 'Autumn', 'Spring'],
+            type: DataTypes.ENUM('Summer', 'Winter', 'Autumn', 'Spring'),
             allowNull: false
         }
     })
