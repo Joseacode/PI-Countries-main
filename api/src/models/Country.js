@@ -6,7 +6,8 @@ const { DataTypes, Sequelize } = require('sequelize');
 module.exports = (sequelize) => {
     // defino el modelo
     sequelize.define('Country', {
-        Id: {
+        //Obligatorio
+        ID: {
             type: DataTypes.STRING,
             validate: {
                 is: /^ [A - Z]{3}$ /,
@@ -20,6 +21,13 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true,
         },
+        //Obligatorio
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
+        //Obligatorio
         flag: {
             type: DataTypes.STRING,
             validate: {
@@ -28,31 +36,36 @@ module.exports = (sequelize) => {
             allowNull: false,
             unique: true
         },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
-        },
+        //Obligatorio
         continent: {
             type: DataTypes.ENUM('America', 'Africa', 'Asia', 'Europa', 'Oceania'),
             allowNull: false,
         },
+        //Obligatorio
         capital: {
             type: DataTypes.STRING,
             allowNu: true
         },
+        //Opcional
         sub_region: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
+        //Opcional
         area: {
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.INTEGER,
+            allowNull: true
         },
+        //Opcional
         population: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        
+        //Distición entre la Api y DB
+        createInDb: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
+        }
     });
 };

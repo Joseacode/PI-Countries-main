@@ -3,8 +3,9 @@
     "",
     "\\api",
     "\\api\\src",
-    "\\api\\src\\models"
+    "\\api\\src\\models",
+    "\\api\\src\\routes"
   ],
-  "SelectedNode": "\\api\\src\\models\\Country.js",
+  "SelectedNode": "\\api\\src\\db.js",
   "PreviewInSolutionExplorer": false
 }
