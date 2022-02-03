@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
             unique: true
         },
         //Obligatorio
-        flag: {
+        flags: {
             type: DataTypes.STRING,
             validate: {
                 isUrl: true,
@@ -37,14 +37,14 @@ module.exports = (sequelize) => {
             unique: true
         },
         //Obligatorio
-        continent: {
-            type: DataTypes.ENUM('America', 'Africa', 'Asia', 'Europa', 'Oceania'),
+        continents: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
         //Obligatorio
         capital: {
             type: DataTypes.STRING,
-            allowNu: true
+            allowNull: true
         },
         //Opcional
         sub_region: {
@@ -54,18 +54,12 @@ module.exports = (sequelize) => {
         //Opcional
         area: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: false
         },
         //Opcional
         population: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        //Distición entre la Api y DB
-        createInDb: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: true
-        }
     });
 };

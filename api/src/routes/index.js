@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const axios = require('axios')
 const { conn, Country, T_Activity } = require('../db')
+const { Op } = require('sequelize')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.jss();
@@ -15,88 +16,101 @@ const getApiInfo = async () => {
         return {
             ID: dat.cca3,
             name: dat.name.common,
-            flags: dat.flags[1],
-            continente: dat.continents.map(dat => dat),
+            flags: dat.flags[0] || ["Not Flags"],
+            continents: dat.continents[0],
             capital: dat.capital,
             subregion: dat.subregion,
             area: dat.area,
-            poblacion: dat.population
+            population: dat.population
         }
     })
     return apiInfo
 }
 
-const getDbInfo = async () => {
-    return await Country.findAll({
-        include: {
-            model: T_Activity,
-            atributes: ['name', 'difficulty', 'duration', 'seasons'],
-            throw: {
-                atributes: []
-            }
+router.get("/countries", async (req, res, next) => {
+    const { name } = req.query;
+    let allCountries = await getApiInfo();
+    const dbCountries = await Country.count();
+    let countries;
+
+    if (dbCountries === 0) {
+        countries = await Country.bulkCreate(allCountries);
+    }
+    countries = await getApiInfo();
+    try {
+        if (name) {
+            let countryName = await Country.findAll({
+                where: {
+                    name: {
+                        [Op.iLike]: `%${name}%`, // se filtran los paises que contengan el string que llega por query
+                    },
+                },
+            });
+            countryName.length
+                ? res.status(200).send(countryName)
+                : res.status(404).send("No se existe el pais buscado");
+        } else {
+            res.status(201).send(countries);
         }
-    })
-}
-
-const getAllCountries = async () => {
-    const apiInfo = await getApiInfo()
-    const dBinfo = await getDbInfo()
-    const allInfo = apiInfo.concat(dBinfo)
-    console.log(allInfo)
-    return allInfo
-}
-
-router.get('/countries', async (req, res) => {
-    const name = req.query.name
-    console.log(name)
-
-    let allCountries = await getAllCountries()
-
-    if (name) {
-        let countryName = allCountries.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
-        console.log(countryName)
-        countryName.length ?
-            res
-                .status(200)
-                .send(countryName)
-            :
-            res
-                .status(404)
-                .send('Pais Inexistente')
-    } else {
-        res
-            .status(200)
-            .send(allCountries)
+    } catch (error) {
+        next(error);
     }
-})
+});
 
-router.get('/countries/:id', async (req, res) => {
+router.get('/countries/:id', async (req, res, next) => {
     const { id } = req.params
+   try {
+        if (id) {
+            let countryName = await Country.findByPk(id,{
+                
+                                include: [
+                    {
+                        model: T_Activity,
+                        attributes: ["name"], // se relacionan las actividades de cada país
+                        through: {
+                            attributes: [],
+                        },
+                    },
+                ],
+            });
+            
+            countryName
+                ? res.status(200).send(countryName)
+                : res.status(404).send("No se existe el pais buscado");
+        } else {
+            res.status(201).send(countries);
+        }
+    } catch (error) {
+        next(error);
+    }
+})
 
-    console.log(id)
-
-    const allCountries = await getAllCountries()
-    console.log(allCountries)
-    if (id) {
-        let countryId = await allCountries.filter((el) => el.ID.toLowerCase().includes(id.toLowerCase()))
-        countryId ?
+router.post('/activity', async (req, res, next) => {
+    
+    const { name, difficulty, duration, seasons, country } = req.body
+    
+    try {
+        if (name && difficulty && duration && seasons) {
+            const [nActivity, created] = await T_Activity.findOrCreate({
+                where: {
+                    name: name,
+                    difficulty: difficulty,
+                    duration: duration,
+                    seasons: seasons
+                }
+            })
+            if (country) {
+                let countryA = await Country.findAll({ where: { name: country } })
+                await nActivity.addCountry(countryA)
+                console.log('Actividad', nActivity, 'Pais', countryA, 'body',country)
+            }
             res
                 .status(200)
-                .json(countryId)
-            :
-            res
-                .status(404)
-                .send('No se encuentra el Pais')
+                .send(`La actividad ${nActivity.name} se agrego  correctamente`)
+        }
+    } 
+    catch (error) {
+        next(error)
     }
 })
-
-router.post('/activity', async (req, res) => {
-    const { name, difficulty, duration, seasons,  } = req.body
-
-    if (name && difficulty && duration && seasons) {
-
-    }
-
-})
-
 module.exports = router;

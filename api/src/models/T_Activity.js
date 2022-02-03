@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         difficulty: {
             type: DataTypes.INTEGER,
@@ -22,15 +22,21 @@ module.exports = (sequelize) => {
                 min: 1,
                 max: 5
             },
-            allowNull: false
+            allowNull: true
         },
         duration: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         seasons: {
             type: DataTypes.ENUM('Summer', 'Winter', 'Autumn', 'Spring'),
-            allowNull: false
+            allowNull: true
+        },
+        //Distición entre la Api y DB
+        createInDb: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
         }
     })
 }
