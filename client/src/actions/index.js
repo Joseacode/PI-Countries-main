@@ -10,3 +10,19 @@ export function getCountries() {
     })
 }
 
+export function filterContinents(payload) {
+    return {
+        type: 'FILTER_BY_CONTINENTS',
+        payload
+    }
+}
+
+export function filterByOrder(payload) {
+    console.log('Desde Actions', payload)
+    return {
+        type: 'FILTER_BY_ORDER',
+        payload
+    }
+}
+
+
