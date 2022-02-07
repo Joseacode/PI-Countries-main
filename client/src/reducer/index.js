@@ -4,6 +4,7 @@ const initialState = {
 }
 
 function rootReducer(state = initialState, action) {
+    console.log(action.payload)
     switch (action.type) {
         case 'GET_COUNTRIES':
             return ({
@@ -56,8 +57,6 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 countries: sortCountries
             })
-            
-
         default:
             return ({
                 ...state
@@ -65,5 +64,4 @@ function rootReducer(state = initialState, action) {
     }
     
 }
-
 export default rootReducer

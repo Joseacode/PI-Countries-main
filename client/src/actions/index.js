@@ -24,5 +24,13 @@ export function filterByOrder(payload) {
         payload
     }
 }
+ export function filterByActivity(payload) {
+        return ({
+            type: 'FILTER_BY_ACTIVITY',
+            payload 
+        })
+    }
+
+
 
 

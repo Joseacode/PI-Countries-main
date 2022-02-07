@@ -1,0 +1,13 @@
+.main .btn{
+    position:absolute;
+}
+
+.main {
+    margin-block: 0px;
+    z-index: 2;
+}
+.btn{
+    z-index: 3;
+    margin-top: 600px;
+    margin-left: 400px;
+}

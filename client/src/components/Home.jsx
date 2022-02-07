@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getCountries, filterContinents, filterByOrder } from '../actions'
 import CARDS from './Card'
 import Paginated from './Paginated'
+import style from './Home.module.css'
 
 
 const Home = () => {
@@ -134,28 +135,30 @@ const Home = () => {
                     allCountries={allCountries.length}
                     pagin={pagin}
                 />
-
+                <div className={style.container}>
                 {
                     currentCountry?.map(el => {
                         
                         return (
-                            <Fragment key={el.ID}>
-                                {console.log(allCountries)}
-                                <CARDS
-                                    
-                                    name={el.name}
-                                    img={el.flags}
-                                    cont={el.continent}
-                                    cp={el.capital}
-                                    cca3={el.ID}
-                                    subr={el.subregion}
-                                    area={el.area}
-                                    popu={el.population}
+
+                            <div key={el.ID} >
+
+                                    <CARDS
+
+                                        name={el.name}
+                                        img={el.flags}
+                                        cont={el.continents}
+                                        cp={el.capital}
+                                        cca3={el.ID}
+                                        subr={el.subregion}
+                                        area={el.area}
+                                        popu={el.population}
                                 />
-                            </Fragment>
+                            </div>
                         )
                     })
-                }
+                    }
+                    </div>
             </div>
         </div>
         )
