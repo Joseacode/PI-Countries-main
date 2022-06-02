@@ -14,14 +14,14 @@ const Home = () => {
 
     const [order, setOrder] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
-    const [countriesPerPage, setCountriesPerPage] = useState(9)
+    const [countriesPerPage, setCountriesPerPage] = useState(10)
     const indexOfLastCountry = currentPage * countriesPerPage
     const indexOfFisrtCountry = indexOfLastCountry - countriesPerPage
     const currentCountry = allCountries.slice(indexOfFisrtCountry, indexOfLastCountry)
 
     const pagin = (pageNumber) => {
         setCurrentPage(pageNumber)
-        currentPage === 1 ? setCountriesPerPage(9) : setCountriesPerPage(10)
+        
     }
 
     useEffect(() => {
@@ -76,58 +76,7 @@ const Home = () => {
                 </select>
                 <select >
                     <option value='All'>Todos</option>
-                    <option value='All'>Cultural</option>
-                    <option value='Antarctica'>Ecologico</option>
-                    <option value='Asia'>Rural</option>
-                    <option value='North America'>Agrario</option>
-                    <option value='Africa'>Aventura</option>
-                    <option value='Europe'>Deportivo</option>
-                    <option value='South America'>Nieve</option>
-                    <option value='Oceania'>Golf</option>
-                    <option value='Oceania'>Ciclismo</option>
-                    <option value='Oceania'>Sol y Playa</option>
-                    <option value='Oceania'>Salud</option>
-                    <option value='Oceania'>Medico</option>
-                    <option value='Oceania'>Cirugia Estetica</option>
-                    <option value='Oceania'>Negocios</option>
-                    <option value='Oceania'>Gastronomico</option>
-                    <option value='Oceania'>Enoturismo</option>
-                    <option value='Oceania'>Costero</option>
-                    <option value='Oceania'>Cruceros</option>
-                    <option value='Oceania'>Aguas Interiores</option>
-                    <option value='Oceania'>Urbano</option>
-                    <option value='Oceania'>Montaña</option>
-                    <option value='Oceania'>Caza</option>
-                    <option value='Oceania'>Educativo</option>
-                    <option value='Oceania'>Solidario</option>
-                    <option value='Oceania'>Social</option>
-                    <option value='Oceania'>Cinematografico</option>
-                    <option value='Oceania'>Religioso</option>
-                    <option value='Oceania'>Industrial</option>
-                    <option value='Oceania'>Compras</option>
-                    <option value='Oceania'>Ludico-Festivo</option>
-                    <option value='Oceania'>Eventos y Acontesimientos</option>
-                    <option value='Oceania'>Literario</option>
-                    <option value='Oceania'>Ornitologico</option>
-                    <option value='Oceania'>Solteros</option>
-                    <option value='Oceania'>Gay o LGBT</option>
-                    <option value='Oceania'>Turismo de Lujo</option>
-                    <option value='Oceania'>Turismo Espiritual</option>
-                    <option value='Oceania'>Turismo Sostenible</option>
-                    <option value='Oceania'>Turismo Tematico</option>
-                    <option value='Oceania'>Mochilero</option>
-                    <option value='Oceania'>Camping</option>
-                    <option value='Oceania'>Cementerios</option>
-                    <option value='Oceania'>Turismo de Guerra</option>
-                    <option value='Oceania'>Turismo de Idiomas</option>
-                    <option value='Oceania'>Turismo de Espacial</option>
-                    <option value='Oceania'>Turismo de Ufologico</option>
-                    <option value='Oceania'>Turismo de Negro</option>
-                    <option value='Oceania'>Turismo de Marihuna</option>
-                    <option value='Oceania'>Turismo de Favelas</option>
-                    <option value='Oceania'>Turismo Atomico</option>
-                    <option value='Oceania'>Turismo de Juegos</option>
-                    <option value='Oceania'>Turismo de Pueblos Abandonados</option>
+                    
                 </select>
                
                 <Paginated 

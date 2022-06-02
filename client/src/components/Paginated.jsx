@@ -1,4 +1,6 @@
 import React from 'react'
+import style from './Paginado.module.css'
+
 
 function Paginated({ countriesPerPage, allCountries, pagin }) {
     const pageNumbers = []
@@ -12,7 +14,7 @@ function Paginated({ countriesPerPage, allCountries, pagin }) {
                 {
                     pageNumbers?.map(number => {
                         return (
-                            <li className='number' key={number}>
+                            <li className={style.number} key={number}>
                                 <button onClick={() => pagin(number)}>{number}</button>
                             </li>
                         )
